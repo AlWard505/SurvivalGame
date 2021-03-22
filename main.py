@@ -3,6 +3,8 @@ from load import load
 import json
 import os
 from tkinter import *
+
+#Generates and gets the contents of th ~playerdata and ~worlddata json files
 def GetNew(entry,filewin):
     global filename
     global stuff
@@ -17,6 +19,8 @@ def GetNew(entry,filewin):
     filename = New(filename3)
     stuff, world = load(filename,stuff3,world3)
     filewin.destroy()
+
+#creates the page that lets you enter your new world name
 def DoNew():
     try:
         filewin.destroy()
@@ -30,6 +34,8 @@ def DoNew():
     entry.pack(side = LEFT)
     button = Button(filewin, text="OK",command = lambda:GetNew(entry,filewin))
     button.pack(side = LEFT)
+
+#warns you if you have any unsaved data
 def SaveWarNew():
     try:
         filename
@@ -49,6 +55,8 @@ def SaveWarNew():
             yeah.grid(column = 15,row = 1)
         else:
             DoNew()
+
+#warns you if you have any unsaved data     
 def SaveWarCon():
     try:
         filename
@@ -68,12 +76,18 @@ def SaveWarCon():
             yeah.grid(column = 15,row = 1)
         else:
             DoContinue()
+
+#will create a new file if there is unsaved data           
 def DoNewNoSave(filewin):
     filewin.destroy()
     DoNew()
+
+#will load an old file if there is unsaved data  
 def DoConNoSave(filewin):
     filewin.destroy()
     DoContinue()
+
+#creates the window that lets you choose what file to open
 def DoContinue():
     filewin = Toplevel(main)
     x=0
@@ -89,6 +103,8 @@ def DoContinue():
     scroll.config(command = List.yview)
     button = Button(filewin, text = "load",command =lambda:GetContinue(List,filewin,saves))
     button.pack()
+
+#loads the file that has been selected by the DoContinue() function
 def GetContinue(List,filewin,saves):
     global filename
     global stuff
@@ -106,16 +122,22 @@ def GetContinue(List,filewin,saves):
     filename = saves[int(check)]
     stuff, world = load(filename,stuff3,world3)
     filewin.destroy()
+
+#changes a value for debug
 def alter():
     print (stuff)
     stuff["inventory"]["pie"]=69
     print (stuff)
+
+#saves data then quits the file
 def SaveQuit():
     try:
         Save(filename,stuff,world)
     except:
         pass
     exitsavwar()
+
+#warns you if you have any unsaved data when trying to quit
 def exitsavwar():
     try:
         filename
@@ -135,6 +157,8 @@ def exitsavwar():
             yeah.grid(column = 15,row = 1)
         else:
             exit()
+
+            
 main = Tk()
 menubar = Menu(main)
 filemenu = Menu(menubar, tearoff=0)
@@ -143,10 +167,12 @@ filemenu.add_command(label="Continue", command=lambda:SaveWarCon())
 filemenu.add_command(label="Save", command=lambda:Save(filename,stuff,world))
 filemenu.add_command(label="Save&Quit", command=lambda:SaveQuit())
 filemenu.add_command(label="Quit", command=lambda:exitsavwar())
-filemenu.add_command(label="filename", command=lambda:print(filename))
-filemenu.add_command(label="stuff", command=lambda:print(stuff))
-filemenu.add_command(label="change", command=lambda:alter())
 menubar.add_cascade(label="File", menu=filemenu)
+debugmenu = Menu(menubar, tearoff=0)
+debugmenu.add_command(label="filename", command=lambda:print(filename))
+debugmenu.add_command(label="stuff", command=lambda:print(stuff))
+debugmenu.add_command(label="change", command=lambda:alter())
+menubar.add_cascade(label="Debug", menu=debugmenu)
 editmenu = Menu(menubar, tearoff=0)
 
 main.config(menu=menubar)
