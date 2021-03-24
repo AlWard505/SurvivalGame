@@ -18,6 +18,7 @@ def GetNew(entry,filewin):
     filename3 = entry.get()
     filename = New(filename3)
     stuff, world = load(filename,stuff3,world3)
+    Map(stuff,world)
     filewin.destroy()
 
 #creates the page that lets you enter your new world name
@@ -121,6 +122,7 @@ def GetContinue(List,filewin,saves):
     check = check.translate({ord(")"): None})
     filename = saves[int(check)]
     stuff, world = load(filename,stuff3,world3)
+    Map(stuff,world)
     filewin.destroy()
 
 #changes a value for debug
@@ -158,8 +160,28 @@ def exitsavwar():
         else:
             exit()
 
-            
-main = Tk()
+def Map(stuff,world):
+    mapframe = Frame(main,bd=2,bg="black")
+    z=5
+    x=0
+    y=0
+    print(world[stuff["currentlocation"]["y"]][stuff["currentlocation"]["x"]])
+    while x-z-1 != z:
+        x+=1
+        colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8"]
+        while y-z-1 != z:
+            y+=1
+            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+x-z-1][stuff["currentlocation"]["x"]+y-z-1]-1],height=2, width = 4)
+            button.grid(column = y, row = x)
+        
+        y = 0
+    mainwin.add(mapframe)
+
+main = Tk()            
+mainwin = PanedWindow()
+
+mainwin.pack(fill=BOTH, expand=1,side = LEFT)
+
 menubar = Menu(main)
 filemenu = Menu(menubar, tearoff=0)
 filemenu.add_command(label="New", command=lambda:SaveWarNew())
