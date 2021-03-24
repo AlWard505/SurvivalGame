@@ -165,18 +165,30 @@ def Map(stuff,world):
     z=5
     x=0
     y=0
-    print(world[stuff["currentlocation"]["y"]][stuff["currentlocation"]["x"]])
-    while x-z-1 != z:
-        x+=1
-        colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8"]
-        while y-z-1 != z:
-            y+=1
-            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+x-z-1][stuff["currentlocation"]["x"]+y-z-1]-1],height=2, width = 4)
+    tempx=0
+    tempy=0
+    movx = 0
+    movy = 0
+    print(str("x")+"="+str(stuff["currentlocation"]["x"]))
+    print(str("y")+"="+str(stuff["currentlocation"]["y"]))
+    while y-z-1 != z:
+        y+=1
+        colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8","red"]
+        while x-z-1 != z:
+            x+=1
+            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+x-z-1][stuff["currentlocation"]["x"]+y-z-1]-1],height=2, width = 4,command = lambda movx = stuff["currentlocation"]["x"],movy =stuff["currentlocation"]["y"]: MapMove(mapframe,movx,movy))
             button.grid(column = y, row = x)
         
-        y = 0
+        x = 0
     mainwin.add(mapframe)
+def MapMove(mapframe,movx,movy):
+    stuff["currentlocation"]["x"] = movx
+    stuff["currentlocation"]["y"] = movy
+    mapframe.destroy()
+    Map(stuff,world)
 
+def changespawn():
+    world[stuff["currentlocation"]["y"]][stuff["currentlocation"]["x"]]=6
 main = Tk()            
 mainwin = PanedWindow()
 
@@ -194,6 +206,7 @@ debugmenu = Menu(menubar, tearoff=0)
 debugmenu.add_command(label="filename", command=lambda:print(filename))
 debugmenu.add_command(label="stuff", command=lambda:print(stuff))
 debugmenu.add_command(label="change", command=lambda:alter())
+debugmenu.add_command(label="change", command=lambda:changespawn())
 menubar.add_cascade(label="Debug", menu=debugmenu)
 editmenu = Menu(menubar, tearoff=0)
 
