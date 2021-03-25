@@ -3,7 +3,7 @@ import json
 
 player = ""
 
-def data(filename):
+def data(filename,fog):
 
     x = randint(484,540)
     y = randint(484,540)
@@ -22,9 +22,12 @@ def data(filename):
             "x": x,
             "y": y
             },
-
         "discovered":[],
         }
+    if fog == 1:
+        stuff["fog"] = 1
+    else:
+        stuff["fog"] = 0
     with open("saves/"+filename+"/"+filename+"data.json", 'w') as outfile:
         json.dump(stuff, outfile)
 

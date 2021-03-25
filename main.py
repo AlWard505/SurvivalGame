@@ -5,10 +5,11 @@ import os
 from tkinter import *
 mapzoom=2
 #Generates and gets the contents of th ~playerdata and ~worlddata json files
-def GetNew(entry,filewin):
+def GetNew(entry,filewin,fog):
     global filename
     global stuff
     global world
+    fog = fog.get()
     filename = ""
     stuff ={}
     world = []
@@ -16,8 +17,12 @@ def GetNew(entry,filewin):
     stuff3 ={}
     world3 = []
     filename3 = entry.get()
-    filename = New(filename3)
+    filename = New(filename3,fog)
     stuff, world = load(filename,stuff3,world3)
+    try:
+        mapframe.destroy()
+    except:
+        pass
     Map(stuff,world)
     filewin.destroy()
 
@@ -28,13 +33,18 @@ def DoNew():
     except:
         pass
     filewin = Toplevel(main)
-    label = Label(filewin, text="Enter world name:")
+    enterframe = Frame(filewin)
+    fog = IntVar()
+    label = Label(enterframe, text="Enter world name:")
     label.pack( side = LEFT)
-    entry = Entry(filewin, bd =5)
+    entry = Entry(enterframe, bd =5)
     entry.focus_set()
     entry.pack(side = LEFT)
-    button = Button(filewin, text="OK",command = lambda:GetNew(entry,filewin))
+    button = Button(enterframe, text="OK",command = lambda:GetNew(entry,filewin,fog))
     button.pack(side = LEFT)
+    enterframe.pack(anchor = NW)
+    FogCheck = Checkbutton(filewin,text = "Fog of War",variable = fog, onvalue = 1, offvalue = 0)
+    FogCheck.pack(anchor = SW)
 
 #warns you if you have any unsaved data
 def SaveWarNew():
@@ -127,6 +137,10 @@ def GetContinue(List,filewin,saves):
     check = check.translate({ord(")"): None})
     filename = saves[int(check)]
     stuff, world = load(filename,stuff3,world3)
+    try:
+        mapframe.destroy()
+    except:
+        pass
     Map(stuff,world)
     filewin.destroy()
 
@@ -170,6 +184,7 @@ def exitsavwar():
 
 def Map(stuff,world):
     global mapzoom
+    global mapframe
     mapframe = Frame(main,bd=2,bg="black")
     x=0
     y=0
@@ -193,36 +208,40 @@ def Map(stuff,world):
         colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8","red"]
         while x-mapzoom-1 != mapzoom:
             x+=1
-            if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"]:
-                button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(mapframe,movx,movy))
+            if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"] or stuff["fog"] == 0:
+                button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy))
                 button.grid(column = y, row = x)
             else:
-                button = Button(mapframe,bg = "grey",height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(mapframe,movx,movy))
+                button = Button(mapframe,bg = "grey",height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy))
                 button.grid(column = y, row = x)
     
         x = 0
-    button = Button(mapframe,text = "+",height=1, width = 2,command= lambda:zoomin(mapframe))
+    button = Button(mapframe,text = "+",height=1, width = 2,command= lambda:zoomin())
     button.grid(row = mapzoom*2+2,column = mapzoom+2)
-    button = Button(mapframe,text = "-",height=1, width = 2,command= lambda:zoomout(mapframe))
+    button = Button(mapframe,text = "-",height=1, width = 2,command= lambda:zoomout())
     button.grid(row = mapzoom*2+2,column = mapzoom)
     mainwin.add(mapframe)
+    
 def MapMove(mapframe,movx,movy):
     stuff["currentlocation"]["x"] = movx
     stuff["currentlocation"]["y"] = movy
     mapframe.destroy()
     Map(stuff,world)
-def zoomin(mapframe):
+    
+def zoomin():
     global mapzoom
     if mapzoom != 10:
         mapzoom+=1
         mapframe.destroy()
         Map(stuff,world)
-def zoomout(mapframe):
+        
+def zoomout():
     global mapzoom
     if mapzoom != 2:
         mapzoom+=-1
         mapframe.destroy()
         Map(stuff,world)
+        
 main = Tk()            
 mainwin = PanedWindow()
 mainwin.pack(fill=BOTH, expand=1,side = LEFT)
@@ -235,6 +254,7 @@ filemenu.add_command(label="Save", command=lambda:Save(filename,stuff,world))
 filemenu.add_command(label="Save&Quit", command=lambda:SaveQuit())
 filemenu.add_command(label="Quit", command=lambda:exitsavwar())
 menubar.add_cascade(label="File", menu=filemenu)
+
 debugmenu = Menu(menubar, tearoff=0)
 debugmenu.add_command(label="filename", command=lambda:print(filename))
 debugmenu.add_command(label="stuff", command=lambda:print(stuff))

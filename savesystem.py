@@ -5,7 +5,7 @@ import os
 from json import *
 from tkinter import *
 
-def New(filename):
+def New(filename,fog):
     check = 0
     x = 0
     badthings = '*."/\\[];:|,'
@@ -26,7 +26,7 @@ def New(filename):
             check = 1
             filename = filename+str(namehelp)
     generation(filename)
-    data(filename)
+    data(filename,fog)
     return filename
 
 #Save
