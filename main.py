@@ -43,20 +43,22 @@ def SaveWarNew():
     except:
         DoNew()
     else:
-        stufftemp = {}
-        worldtemp = []
-        stufftemp, worldtemp = load(filename,stufftemp,worldtemp)
-        if stufftemp != stuff or worldtemp!= world:
-            filewin = Toplevel(main)
-            label = Label(filewin, text="You have unsaved data, are you sure you want to continue?")
-            label.grid(row = 0,columnspan = 30,column = 0)
-            dont = Button(filewin, text = "yes", command = lambda:DoNewNoSave(filewin))
-            dont.grid(column = 14,row = 1)
-            yeah = Button(filewin, text = "no", command = lambda:filewin.destroy())
-            yeah.grid(column = 15,row = 1)
-        else:
+        try:
+            stufftemp = {}
+            worldtemp = []
+            stufftemp, worldtemp = load(filename,stufftemp,worldtemp)
+            if stufftemp != stuff or worldtemp!= world:
+                filewin = Toplevel(main)
+                label = Label(filewin, text="You have unsaved data, are you sure you want to continue?")
+                label.grid(row = 0,columnspan = 30,column = 0)
+                dont = Button(filewin, text = "yes", command = lambda:DoNewNoSave(filewin))
+                dont.grid(column = 14,row = 1)
+                yeah = Button(filewin, text = "no", command = lambda:filewin.destroy())
+                yeah.grid(column = 15,row = 1)
+            else:
+                DoNew()
+        except:
             DoNew()
-
 #warns you if you have any unsaved data     
 def SaveWarCon():
     try:
@@ -64,18 +66,21 @@ def SaveWarCon():
     except:
         DoContinue()
     else:
-        stufftemp = {}
-        worldtemp = []
-        stufftemp, worldtemp = load(filename,stufftemp,worldtemp)
-        if stufftemp != stuff or worldtemp!= world:
-            filewin = Toplevel(main)
-            label = Label(filewin, text="You have unsaved data, are you sure you want to continue?")
-            label.grid(row = 0,columnspan = 30,column = 0)
-            dont = Button(filewin, text = "yes", command = lambda:DoConNoSave(filewin))
-            dont.grid(column = 14,row = 1)
-            yeah = Button(filewin, text = "no", command = lambda:filewin.destroy())
-            yeah.grid(column = 15,row = 1)
-        else:
+        try:
+            stufftemp = {}
+            worldtemp = []
+            stufftemp, worldtemp = load(filename,stufftemp,worldtemp)
+            if stufftemp != stuff or worldtemp!= world:
+                filewin = Toplevel(main)
+                label = Label(filewin, text="You have unsaved data, are you sure you want to continue?")
+                label.grid(row = 0,columnspan = 30,column = 0)
+                dont = Button(filewin, text = "yes", command = lambda:DoConNoSave(filewin))
+                dont.grid(column = 14,row = 1)
+                yeah = Button(filewin, text = "no", command = lambda:filewin.destroy())
+                yeah.grid(column = 15,row = 1)
+            else:
+                DoContinue()
+        except:
             DoContinue()
 
 #will create a new file if there is unsaved data           
@@ -146,18 +151,21 @@ def exitsavwar():
     except:
         exit()
     else:
-        stufftemp = {}
-        worldtemp = []
-        stufftemp, worldtemp = load(filename,stufftemp,worldtemp)
-        if stufftemp != stuff or worldtemp!= world:
-            filewin = Toplevel(main)
-            label = Label(filewin, text="You have unsaved data, are you sure you want to continue?")
-            label.grid(row = 0,columnspan = 30,column = 0)
-            dont = Button(filewin, text = "yes", command = lambda:exit())
-            dont.grid(column = 14,row = 1)
-            yeah = Button(filewin, text = "no", command = lambda:filewin.destroy())
-            yeah.grid(column = 15,row = 1)
-        else:
+        try:
+            stufftemp = {}
+            worldtemp = []
+            stufftemp, worldtemp = load(filename,stufftemp,worldtemp)
+            if stufftemp != stuff or worldtemp!= world:
+                filewin = Toplevel(main)
+                label = Label(filewin, text="You have unsaved data, are you sure you want to continue?")
+                label.grid(row = 0,columnspan = 30,column = 0)
+                dont = Button(filewin, text = "yes", command = lambda:exit())
+                dont.grid(column = 14,row = 1)
+                yeah = Button(filewin, text = "no", command = lambda:filewin.destroy())
+                yeah.grid(column = 15,row = 1)
+            else:
+                exit()
+        except:
             exit()
 
 def Map(stuff,world):
