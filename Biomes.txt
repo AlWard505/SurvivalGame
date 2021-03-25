@@ -1,5 +1,0 @@
-planes
-forrest
-desert
-water
-mountains
