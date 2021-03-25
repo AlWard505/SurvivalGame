@@ -162,7 +162,7 @@ def exitsavwar():
 
 def Map(stuff,world):
     mapframe = Frame(main,bd=2,bg="black")
-    z=5
+    z=10
     x=0
     y=0
     tempx=0
@@ -176,7 +176,7 @@ def Map(stuff,world):
         colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8","red"]
         while x-z-1 != z:
             x+=1
-            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+x-z-1][stuff["currentlocation"]["x"]+y-z-1]-1],height=2, width = 4,command = lambda movx = stuff["currentlocation"]["x"],movy =stuff["currentlocation"]["y"]: MapMove(mapframe,movx,movy))
+            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-z-1][stuff["currentlocation"]["x"]+x-z-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-z-1,movy =stuff["currentlocation"]["y"]+y-z-1: MapMove(mapframe,movx,movy))
             button.grid(column = y, row = x)
         
         x = 0
