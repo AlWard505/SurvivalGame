@@ -1,0 +1,242 @@
+{
+	"planes" : {
+		"ores" : {
+			"iron" : {
+				"quantity" : [100,400],
+				"rarity" : [1,25]
+			},
+			"copper" : {
+				"quantity" : [100,400],
+				"rarity" : [1,25]
+			},
+			"adamantium" : {
+				"quantity" : [20,50],
+				"rarity" : [1,200]
+			},
+			"gold" : {
+				"quantity" : [70,250],
+				"rarity" : [1,50]
+			},
+		},
+		"organic" : {
+			"trees" : {
+				"quantity" : [50,125],
+				"rarity" : [1,4]
+			},
+			"flowers" : {
+				"red rose" : {
+					"quantity" : [50,125],
+					"rarity" : [1,5]
+				},
+				"dandylion" : {
+					"quantity" : [50,125],
+					"rarity" : [1,5]
+				},
+				"white lily" : {
+					"quantity" : [50,125],
+					"rarity" : [1,5]
+				},
+				"blue periwinkle" : {
+					"quantity" : [50,125],
+					"rarity" : [1,5]
+				},
+				"cactus" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+			},
+		},
+	},
+	"forest" : {
+		"ores" : {
+			"iron" : {
+				"quantity" : [100,400],
+				"rarity" : [1,25]
+			},
+			"copper" : {
+				"quantity" : [100,400],
+				"rarity" : [1,25]
+			},
+			"adamantium" : {
+				"quantity" : [20,50],
+				"rarity" : [1,200]
+			},
+			"gold" : {
+				"quantity" : [70,250],
+				"rarity" : [1,50]
+			},
+		},
+		"organic" : {
+			"trees" : {
+				"quantity" : [400,700],
+				"rarity" : [1,4]
+			},
+			"flowers" : {
+				"red rose" : {
+					"quantity" : [10,30],
+					"rarity" : [1,20]
+				},
+				"dandylion" : {
+					"quantity" : [10,30],
+					"rarity" : [1,20]
+				},
+				"white lily" : {
+					"quantity" : [10,30],
+					"rarity" : [1,20]
+				},
+				"blue periwinkle" : {
+					"quantity" : [10,30],
+					"rarity" : [1,20]
+				},
+				"cactus" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+			},
+		},
+	},
+	"desert" : {
+		"ores" : {
+			"iron" : {
+				"quantity" : [100,350],
+				"rarity" : [1,25]
+			},
+			"copper" : {
+				"quantity" : [100,350],
+				"rarity" : [1,25]
+			},
+			"adamantium" : {
+				"quantity" : [20,45],
+				"rarity" : [1,200]
+			},
+			"gold" : {
+				"quantity" : [70,210],
+				"rarity" : [1,50]
+			},
+		},
+		"organic" : {
+			"trees" : {
+				"quantity" : [0,0],
+				"rarity" : [0,0]
+			},
+			"flowers" : {
+				"red rose" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"dandylion" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"white lily" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"blue periwinkle" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"cactus" : {
+					"quantity" : [70,100],
+					"rarity" : [1,4]
+				},
+			},
+		},
+	},
+	"ocean" : {
+		"ores" : {
+			"iron" : {
+				"quantity" : [100,200],
+				"rarity" : [1,25]
+			},
+			"copper" : {
+				"quantity" : [100,200],
+				"rarity" : [1,25]
+			},
+			"adamantium" : {
+				"quantity" : [20,25],
+				"rarity" : [1,200]
+			},
+			"gold" : {
+				"quantity" : [70,125],
+				"rarity" : [1,50]
+			},
+		},
+		"organic" : {
+			"trees" : {
+				"quantity" : [0,0],
+				"rarity" : [0,0]
+			},
+			"flowers" : {
+				"red rose" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"dandylion" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"white lily" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"blue periwinkle" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+				"cactus" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+			},
+		},
+	},
+	"mountains" : {
+		"ores" : {
+			"iron" : {
+				"quantity" : [100,500],
+				"rarity" : [1,25]
+			},
+			"copper" : {
+				"quantity" : [100,500],
+				"rarity" : [1,25]
+			},
+			"adamantium" : {
+				"quantity" : [20,100],
+				"rarity" : [1,200]
+			},
+			"gold" : {
+				"quantity" : [70,400],
+				"rarity" : [1,50]
+			},
+		},
+		"organic" : {
+			"trees" : {
+				"quantity" : [20,40],
+				"rarity" : [1,4]
+			},
+			"flowers" : {
+				"red rose" : {
+					"quantity" : [10,40],
+					"rarity" : [1,10]
+				},
+				"dandylion" : {
+					"quantity" : [10,40],
+					"rarity" : [1,10]
+				},
+				"white lily" : {
+					"quantity" : [10,40],
+					"rarity" : [1,10]
+				},
+				"blue periwinkle" : {
+					"quantity" : [10,40],
+					"rarity" : [1,10]
+				},
+				"cactus" : {
+					"quantity" : [0,0],
+					"rarity" : [0,0]
+				},
+			},
+		},
+	},
+}
