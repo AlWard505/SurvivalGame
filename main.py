@@ -3,7 +3,7 @@ from load import load
 import json
 import os
 from tkinter import *
-
+mapzoom=2
 #Generates and gets the contents of th ~playerdata and ~worlddata json files
 def GetNew(entry,filewin):
     global filename
@@ -161,8 +161,9 @@ def exitsavwar():
             exit()
 
 def Map(stuff,world):
+    global mapzoom
     mapframe = Frame(main,bd=2,bg="black")
-    z=10
+    
     x=0
     y=0
     tempx=0
@@ -171,24 +172,37 @@ def Map(stuff,world):
     movy = 0
     print(str("x")+"="+str(stuff["currentlocation"]["x"]))
     print(str("y")+"="+str(stuff["currentlocation"]["y"]))
-    while y-z-1 != z:
+    while y-mapzoom-1 != mapzoom:
         y+=1
         colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8","red"]
-        while x-z-1 != z:
+        while x-mapzoom-1 != mapzoom:
             x+=1
-            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-z-1][stuff["currentlocation"]["x"]+x-z-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-z-1,movy =stuff["currentlocation"]["y"]+y-z-1: MapMove(mapframe,movx,movy))
+            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(mapframe,movx,movy))
             button.grid(column = y, row = x)
-        
+    
         x = 0
+    button = Button(mapframe,text = "+",height=1, width = 2,command= lambda:zoomin(mapframe))
+    button.grid(row = mapzoom*2+2,column = mapzoom+2)
+    button = Button(mapframe,text = "-",height=1, width = 2,command= lambda:zoomout(mapframe))
+    button.grid(row = mapzoom*2+2,column = mapzoom)
     mainwin.add(mapframe)
 def MapMove(mapframe,movx,movy):
     stuff["currentlocation"]["x"] = movx
     stuff["currentlocation"]["y"] = movy
     mapframe.destroy()
     Map(stuff,world)
-
-def changespawn():
-    world[stuff["currentlocation"]["y"]][stuff["currentlocation"]["x"]]=6
+def zoomin(mapframe):
+    global mapzoom
+    if mapzoom != 10:
+        mapzoom+=1
+        mapframe.destroy()
+        Map(stuff,world)
+def zoomout(mapframe):
+    global mapzoom
+    if mapzoom != 2:
+        mapzoom+=-1
+        mapframe.destroy()
+        Map(stuff,world)
 main = Tk()            
 mainwin = PanedWindow()
 
@@ -206,7 +220,6 @@ debugmenu = Menu(menubar, tearoff=0)
 debugmenu.add_command(label="filename", command=lambda:print(filename))
 debugmenu.add_command(label="stuff", command=lambda:print(stuff))
 debugmenu.add_command(label="change", command=lambda:alter())
-debugmenu.add_command(label="change", command=lambda:changespawn())
 menubar.add_cascade(label="Debug", menu=debugmenu)
 editmenu = Menu(menubar, tearoff=0)
 
