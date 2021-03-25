@@ -222,7 +222,7 @@ def Map(stuff,world):
     button.grid(row = mapzoom*2+2,column = mapzoom)
     mainwin.add(mapframe)
     
-def MapMove(mapframe,movx,movy):
+def MapMove(movx,movy):
     stuff["currentlocation"]["x"] = movx
     stuff["currentlocation"]["y"] = movy
     mapframe.destroy()
