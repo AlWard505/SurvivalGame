@@ -189,7 +189,7 @@ def Map(stuff,world):
     x=0
     y=0
     maprange = 1
-    while y-maprange-1!=maprange:
+    while y-maprange-1!=maprange and stuff["fog"]==1:
         y+=1
         while x-maprange-1 != maprange:
             x+=1
