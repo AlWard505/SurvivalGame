@@ -216,6 +216,8 @@ filemenu.add_command(label="Save", command=lambda:Save(filename,stuff,world))
 filemenu.add_command(label="Save&Quit", command=lambda:SaveQuit())
 filemenu.add_command(label="Quit", command=lambda:exitsavwar())
 menubar.add_cascade(label="File", menu=filemenu)
+
+#used to change parts of the code to see if saving or the map works correctly
 debugmenu = Menu(menubar, tearoff=0)
 debugmenu.add_command(label="filename", command=lambda:print(filename))
 debugmenu.add_command(label="stuff", command=lambda:print(stuff))
