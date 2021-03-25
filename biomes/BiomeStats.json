@@ -16,7 +16,7 @@
 			"gold" : {
 				"quantity" : [70,250],
 				"rarity" : [1,50]
-			},
+			}
 		},
 		"organic" : {
 			"trees" : {
@@ -43,9 +43,9 @@
 				"cactus" : {
 					"quantity" : [0,0],
 					"rarity" : [0,0]
-				},
-			},
-		},
+				}
+			}
+		}
 	},
 	"forest" : {
 		"ores" : {
@@ -64,7 +64,7 @@
 			"gold" : {
 				"quantity" : [70,250],
 				"rarity" : [1,50]
-			},
+			}
 		},
 		"organic" : {
 			"trees" : {
@@ -91,9 +91,9 @@
 				"cactus" : {
 					"quantity" : [0,0],
 					"rarity" : [0,0]
-				},
-			},
-		},
+				}
+			}
+		}
 	},
 	"desert" : {
 		"ores" : {
@@ -112,7 +112,7 @@
 			"gold" : {
 				"quantity" : [70,210],
 				"rarity" : [1,50]
-			},
+			}
 		},
 		"organic" : {
 			"trees" : {
@@ -139,9 +139,9 @@
 				"cactus" : {
 					"quantity" : [70,100],
 					"rarity" : [1,4]
-				},
-			},
-		},
+				}
+			}
+		}
 	},
 	"ocean" : {
 		"ores" : {
@@ -160,7 +160,7 @@
 			"gold" : {
 				"quantity" : [70,125],
 				"rarity" : [1,50]
-			},
+			}
 		},
 		"organic" : {
 			"trees" : {
@@ -187,9 +187,9 @@
 				"cactus" : {
 					"quantity" : [0,0],
 					"rarity" : [0,0]
-				},
-			},
-		},
+				}
+			}
+		}
 	},
 	"mountains" : {
 		"ores" : {
@@ -208,7 +208,7 @@
 			"gold" : {
 				"quantity" : [70,400],
 				"rarity" : [1,50]
-			},
+			}
 		},
 		"organic" : {
 			"trees" : {
@@ -235,8 +235,8 @@
 				"cactus" : {
 					"quantity" : [0,0],
 					"rarity" : [0,0]
-				},
-			},
-		},
-	},
+				}
+			}
+		}
+	}
 }

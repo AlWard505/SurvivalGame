@@ -1,1 +1,1 @@
-{"inventory": {}, "spawnlocation": {"x": 503, "y": 511}, "currentlocation": {"x": 503, "y": 511}, "setspawn": {"x": 503, "y": 511}, "discovered": [], "fog": 0}
+{"inventory": {}, "spawnlocation": {"x": 490, "y": 520}, "currentlocation": {"x": 490, "y": 520}, "setspawn": {"x": 490, "y": 520}, "discovered": [], "generatedbiomes": {"490,520": {"ores": {"iron": {"quantity": 162}, "copper": {"quantity": 216}, "adamantium": {"quantity": 25}, "gold": {"quantity": 120}}}}, "fog": 0}

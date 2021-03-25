@@ -3,6 +3,7 @@ from load import load
 import json
 import os
 from tkinter import *
+from worldgeneration import *
 mapzoom=2
 
 #Generates and gets the contents of th ~playerdata and ~worlddata json files
@@ -226,7 +227,9 @@ def Map(stuff,world):
     x=0
     y=0
     maprange = 1
-
+    biome = world[stuff["currentlocation"]["y"]][stuff["currentlocation"]["x"]]
+    if str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"]) not in stuff["generatedbiomes"]:
+        BiomeGeneration(biome,stuff)
     #fog of war
     while y-maprange-1!=maprange and stuff["fog"]==1:
         y+=1
@@ -242,6 +245,7 @@ def Map(stuff,world):
     y=0
     tempx=0
     tempy=0
+    biome = 0
     movx = 0
     movy = 0
     
@@ -254,11 +258,11 @@ def Map(stuff,world):
             x+=1
             
             if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"] or stuff["fog"] == 0:
-                button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy))
+                button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
                 button.grid(column = y, row = x)
                 
             else:
-                button = Button(mapframe,bg = "grey",height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy))
+                button = Button(mapframe,bg = "grey",height=1, width = 2,command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
                 button.grid(column = y, row = x)
     
         x = 0
@@ -271,10 +275,9 @@ def Map(stuff,world):
     mainwin.add(mapframe)
 
 #moves the button clicked to the center of the grid
-def MapMove(movx,movy):
+def MapMove(movx,movy,biome):
     stuff["currentlocation"]["x"] = movx
     stuff["currentlocation"]["y"] = movy
-    
     mapframe.destroy()
     Map(stuff,world)
 

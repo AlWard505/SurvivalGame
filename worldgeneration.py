@@ -54,5 +54,15 @@ def generation(filename):
         x=0
     with open("saves/"+filename+"/"+filename+"worlddata.json", 'w') as outfile:
         json.dump(arr, outfile)
-    
+def BiomeGeneration(biome,stuff):
+    biomelist = ["planes","forest","desert","ocean","mountains"]
+    loaddata = open("biomes/biomeStats.json", "r")
+    biomeStats = json.load(loaddata)
+    print (biomeStats)
+    stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])] = {}
+    stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["ores"] = {}
+    for x in biomeStats[biomelist[biome-1]]["ores"]:
+
+        stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["ores"][x]= {}
+        stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["ores"][x]["quantity"] = random.randint(biomeStats[biomelist[biome-1]]["ores"][x]["quantity"][0],biomeStats[biomelist[biome-1]]["ores"][x]["quantity"][1])
 
