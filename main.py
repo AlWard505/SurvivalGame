@@ -163,22 +163,34 @@ def exitsavwar():
 def Map(stuff,world):
     global mapzoom
     mapframe = Frame(main,bd=2,bg="black")
-    
+    x=0
+    y=0
+    maprange = 1
+    while y-maprange-1!=maprange:
+        y+=1
+        while x-maprange-1 != maprange:
+            x+=1
+            if str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1) not in stuff["discovered"]:
+                stuff["discovered"]+= [str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1)]
+        x=0
+    stuff["discovered"]
     x=0
     y=0
     tempx=0
     tempy=0
     movx = 0
     movy = 0
-    print(str("x")+"="+str(stuff["currentlocation"]["x"]))
-    print(str("y")+"="+str(stuff["currentlocation"]["y"]))
     while y-mapzoom-1 != mapzoom:
         y+=1
         colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8","red"]
         while x-mapzoom-1 != mapzoom:
             x+=1
-            button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(mapframe,movx,movy))
-            button.grid(column = y, row = x)
+            if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"]:
+                button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(mapframe,movx,movy))
+                button.grid(column = y, row = x)
+            else:
+                button = Button(mapframe,bg = "grey",height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(mapframe,movx,movy))
+                button.grid(column = y, row = x)
     
         x = 0
     button = Button(mapframe,text = "+",height=1, width = 2,command= lambda:zoomin(mapframe))
@@ -205,7 +217,6 @@ def zoomout(mapframe):
         Map(stuff,world)
 main = Tk()            
 mainwin = PanedWindow()
-
 mainwin.pack(fill=BOTH, expand=1,side = LEFT)
 
 menubar = Menu(main)
@@ -216,8 +227,6 @@ filemenu.add_command(label="Save", command=lambda:Save(filename,stuff,world))
 filemenu.add_command(label="Save&Quit", command=lambda:SaveQuit())
 filemenu.add_command(label="Quit", command=lambda:exitsavwar())
 menubar.add_cascade(label="File", menu=filemenu)
-
-#used to change parts of the code to see if saving or the map works correctly
 debugmenu = Menu(menubar, tearoff=0)
 debugmenu.add_command(label="filename", command=lambda:print(filename))
 debugmenu.add_command(label="stuff", command=lambda:print(stuff))
