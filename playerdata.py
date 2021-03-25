@@ -23,6 +23,8 @@ def data(filename,fog):
             "y": y
             },
         "discovered":[],
+        "generatedbiomes":{
+            }
         }
     if fog == 1:
         stuff["fog"] = 1
