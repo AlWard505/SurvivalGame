@@ -4,6 +4,7 @@ import json
 import os
 from tkinter import *
 from worldgeneration import *
+from game import *
 mapzoom=2
 
 #Generates and gets the contents of th ~playerdata and ~worlddata json files
@@ -27,8 +28,7 @@ def GetNew(entry,filewin,fog):
         mapframe.destroy()
     except:
         pass
-    
-    Map(stuff,world)
+    GameSetUp(stuff,world)
     filewin.destroy()
 
 #creates the page that lets you enter your new world name
@@ -172,8 +172,7 @@ def GetContinue(List,filewin,saves):
         mapframe.destroy()
     except:
         pass
-    
-    Map(stuff,world)
+    GameSetUp(stuff,world)
     filewin.destroy()
 
 #changes a value for debug
@@ -298,27 +297,52 @@ def zoomout():
         
         mapframe.destroy()
         Map(stuff,world)
-        
+
+def GameSetUp(stuff,world):
+    optionsframe = Frame(gamewindow,bd=2,bg="black")
+    BuildButton = Button(optionsframe,text = "Build")
+    BuildButton.pack(side = LEFT)
+    LogButton = Button(optionsframe,text = "Log")
+    LogButton.pack(side = LEFT)
+    MineButton = Button(optionsframe,text = "Mine")
+    MineButton.pack(side = LEFT)
+    gamewindow.add(optionsframe)
+    
+    Map(stuff,world)
+    
+#Window Setup        
 main = Tk()            
 mainwin = PanedWindow()
 mainwin.pack(fill=BOTH, expand=1,side = LEFT)
 
+#Game Content
+
+gamewindow = PanedWindow(mainwin, orient=VERTICAL,bg = "black")
+mainwin.add(gamewindow)
+
+
 #creates the menu bar at the top of the window
 menubar = Menu(main)
 
+#file section of the menu bar, allows for a new game, continued game, save and quit
 filemenu = Menu(menubar, tearoff=0)
+
 filemenu.add_command(label="New", command=lambda:SaveWarNew())
 filemenu.add_command(label="Continue", command=lambda:SaveWarCon())
 filemenu.add_command(label="Save", command=lambda:Save(filename,stuff,world))
 filemenu.add_command(label="Save&Quit", command=lambda:SaveQuit())
 filemenu.add_command(label="Quit", command=lambda:exitsavwar())
+
 menubar.add_cascade(label="File", menu=filemenu)
 
+#debug section of the menu bar, allows for elements to be changed during testing
 debugmenu = Menu(menubar, tearoff=0)
+
 debugmenu.add_command(label="filename", command=lambda:print(filename))
 debugmenu.add_command(label="stuff", command=lambda:print(stuff))
 debugmenu.add_command(label="change", command=lambda:alter())
 menubar.add_cascade(label="Debug", menu=debugmenu)
+
 editmenu = Menu(menubar, tearoff=0)
 
 main.config(menu=menubar)
