@@ -311,13 +311,17 @@ def GameSetUp(stuff,world):
     Map(stuff,world)
     
 #Window Setup        
-main = Tk()            
-mainwin = PanedWindow()
+main = Tk()
+
+mainheight = main.winfo_screenheight()-200
+mainwidth = main.winfo_screenwidth()-200
+main.fullScreenState = True
+mainwin = PanedWindow(height = mainheight, width = mainwidth)
 mainwin.pack(fill=BOTH, expand=1,side = LEFT)
 
 #Game Content
 
-gamewindow = PanedWindow(mainwin, orient=VERTICAL,bg = "black")
+gamewindow = PanedWindow(mainwin, orient=VERTICAL,bg = "black", height = mainheight, width = mainwidth/2)
 mainwin.add(gamewindow)
 
 
