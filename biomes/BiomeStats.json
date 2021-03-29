@@ -45,6 +45,16 @@
 					"rarity" : [0,0]
 				}
 			}
+		},
+		"animals" : {
+			"sheep" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			},
+			"cow" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			}
 		}
 	},
 	"forest" : {
@@ -92,6 +102,16 @@
 					"quantity" : [0,0],
 					"rarity" : [0,0]
 				}
+			}
+		},
+		"animals" : {
+			"sheep" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			},
+			"cow" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
 			}
 		}
 	},
@@ -141,6 +161,16 @@
 					"rarity" : [1,4]
 				}
 			}
+		},
+		"animals" : {
+			"sheep" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			},
+			"cow" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			}
 		}
 	},
 	"ocean" : {
@@ -189,6 +219,16 @@
 					"rarity" : [0,0]
 				}
 			}
+		},
+		"animals" : {
+			"sheep" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			},
+			"cow" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			}
 		}
 	},
 	"mountains" : {
@@ -236,6 +276,16 @@
 					"quantity" : [0,0],
 					"rarity" : [0,0]
 				}
+			}
+		},
+		"animals" : {
+			"sheep" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
+			},
+			"cow" : {
+				"quantity" : [1,7],
+				"rarity" : [1,4]
 			}
 		}
 	}

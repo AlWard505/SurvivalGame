@@ -298,6 +298,7 @@ def zoomout():
         mapframe.destroy()
         Map(stuff,world)
 
+#sets up the game window
 def GameSetUp(stuff,world):
     optionsframe = Frame(gamewindow,bd=2,bg="black")
     BuildButton = Button(optionsframe,text = "Build")

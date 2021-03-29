@@ -78,6 +78,7 @@ def BiomeGeneration(biome,stuff):
     stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["organic"] = {}
     stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["organic"]["trees"] = {}
     stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["organic"]["flowers"] = {}
+    stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["animals"] = {}
 
     for x in biomeStats[biomelist[biome-1]]["ores"]:
         stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["ores"][x]= {}
@@ -91,3 +92,8 @@ def BiomeGeneration(biome,stuff):
         stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["organic"]["flowers"][x]= {}
         stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["organic"]["flowers"][x]["quantity"] = random.randint(biomeStats[biomelist[biome-1]]["organic"]["flowers"][x]["quantity"][0],biomeStats[biomelist[biome-1]]["organic"]["flowers"][x]["quantity"][1])
         stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["organic"]["flowers"][x]["rarity"] = biomeStats[biomelist[biome-1]]["organic"]["flowers"][x]["rarity"]
+
+    for x in biomeStats[biomelist[biome-1]]["animals"]:
+        stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["animals"][x]= {}
+        stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["animals"][x]["quantity"] = random.randint(biomeStats[biomelist[biome-1]]["animals"][x]["quantity"][0],biomeStats[biomelist[biome-1]]["animals"][x]["quantity"][1])
+        stuff["generatedbiomes"][str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"])]["animals"][x]["rarity"] = biomeStats[biomelist[biome-1]]["animals"][x]["rarity"]
