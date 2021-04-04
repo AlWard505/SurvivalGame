@@ -25,7 +25,7 @@ def GetNew(entry,filewin,fog):
     stuff, world = load(filename,stuff3,world3)
     
     try:
-        mapframe.destroy()
+        mapwindow.destroy()
     except:
         pass
     GameSetUp(stuff,world)
@@ -169,7 +169,7 @@ def GetContinue(List,filewin,saves):
     filename = saves[int(check)]
     stuff, world = load(filename,stuff3,world3)
     try:
-        mapframe.destroy()
+        mapwindow.destroy()
     except:
         pass
     GameSetUp(stuff,world)
@@ -221,8 +221,11 @@ def exitsavwar():
 # contains the system that generates the fog of war
 def Map(stuff,world):
     global mapzoom
-    global mapframe
-    mapframe = Frame(main,bd=2,bg="black")
+    global mapwindow
+    mapwindow = PanedWindow(main,orient=VERTICAL)
+    mapframe = Frame(mapwindow,bg="black",height = mainheight-30, width = mainwidth/2)
+    Grid.rowconfigure(mapframe, 0, weight=1)
+    Grid.columnconfigure(mapframe, 0, weight=1)
     x=0
     y=0
     maprange = 1
@@ -252,32 +255,37 @@ def Map(stuff,world):
     while y-mapzoom-1 != mapzoom:
         y+=1
         colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8","red"]
-        
+        Grid.rowconfigure(mapframe, y, weight=1)
         while x-mapzoom-1 != mapzoom:
             x+=1
-            
+            Grid.columnconfigure(mapframe, x, weight=1)
             if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"] or stuff["fog"] == 0:
-                button = Button(mapframe,bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],height=1, width = 2,command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
-                button.grid(column = y, row = x)
+                button = Button(mapframe,
+                                bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],
+                                command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,
+                                movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
+                button.grid(column = y, row = x,sticky=N+S+E+W)
                 
             else:
-                button = Button(mapframe,bg = "grey",height=1, width = 2,command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
-                button.grid(column = y, row = x)
+                button = Button(mapframe,bg = "grey",command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
+                button.grid(column = y, row = x,sticky=N+S+E+W)
     
         x = 0
-    button = Button(mapframe,text = "+",height=1, width = 2,command= lambda:zoomin())
+    zoomframe = Frame(mapwindow)
+    button = Button(zoomframe,text = "+",height=1, width = 2,command= lambda:zoomin())
     button.grid(row = mapzoom*2+2,column = mapzoom+2)
     
-    button = Button(mapframe,text = "-",height=1, width = 2,command= lambda:zoomout())
+    button = Button(zoomframe,text = "-",height=1, width = 2,command= lambda:zoomout())
     button.grid(row = mapzoom*2+2,column = mapzoom)
-    
-    mainwin.add(mapframe)
+    mapwindow.add(mapframe)
+    mapwindow.add(zoomframe)
+    mainwin.add(mapwindow)
 
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
     stuff["currentlocation"]["x"] = movx
     stuff["currentlocation"]["y"] = movy
-    mapframe.destroy()
+    mapwindow.destroy()
     Map(stuff,world)
 
 #expands the radius of the grid by 1
@@ -286,7 +294,7 @@ def zoomin():
     if mapzoom != 10:
         mapzoom+=1
         
-        mapframe.destroy()
+        mapwindow.destroy()
         Map(stuff,world)
 
 #decreases the raidus of the grid by one
@@ -295,7 +303,7 @@ def zoomout():
     if mapzoom != 2:
         mapzoom+=-1
         
-        mapframe.destroy()
+        mapwindow.destroy()
         Map(stuff,world)
 
 #sets up the game window
@@ -313,7 +321,7 @@ def GameSetUp(stuff,world):
     
 #Window Setup        
 main = Tk()
-
+global mainheight, mainwidth 
 mainheight = main.winfo_screenheight()-200
 mainwidth = main.winfo_screenwidth()-200
 main.fullScreenState = True
