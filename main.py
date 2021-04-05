@@ -220,10 +220,19 @@ def exitsavwar():
 # generates the map of the world and allows you to click a square and move to it
 # contains the system that generates the fog of war
 def Map(stuff,world):
+
     global mapzoom
     global mapwindow
+    global mapframe
     mapwindow = PanedWindow(main,orient=VERTICAL)
-    mapframe = Frame(mapwindow,bg="black",height = mainheight-30, width = mainwidth/2)
+    mainwin.add(mapwindow) 
+    mapwindow.update_idletasks()
+    main.update_idletasks()
+    if mapwindow.winfo_width() <= main.winfo_height()-30:
+        mapframe = Frame(mapwindow,bg="black",height = mapwindow.winfo_width())
+    else:
+        mapframe = Frame(mapwindow,bg="black",height = main.winfo_height()-30,width =main.winfo_height()-30)
+    print(mapwindow.winfo_width())
     Grid.rowconfigure(mapframe, 0, weight=1)
     Grid.columnconfigure(mapframe, 0, weight=1)
     x=0
@@ -277,9 +286,11 @@ def Map(stuff,world):
     
     button = Button(zoomframe,text = "-",height=1, width = 2,command= lambda:zoomout())
     button.grid(row = mapzoom*2+2,column = mapzoom)
-    mapwindow.add(mapframe)
-    mapwindow.add(zoomframe)
-    mainwin.add(mapwindow)
+    if mapwindow.winfo_width() <= main.winfo_height()-30:
+        mapwindow.add(mapframe)
+    else:
+        mapwindow.paneconfig(mapframe, width =main.winfo_height()-30)
+    mapwindow.paneconfig(zoomframe,sticky = N)
 
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
@@ -328,8 +339,11 @@ main.fullScreenState = True
 mainwin = PanedWindow(height = mainheight, width = mainwidth)
 mainwin.pack(fill=BOTH, expand=1,side = LEFT)
 
-#Game Content
 
+
+
+#Game Content
+global gamewindow
 gamewindow = PanedWindow(mainwin, orient=VERTICAL,bg = "black", height = mainheight, width = mainwidth/2)
 mainwin.add(gamewindow)
 
