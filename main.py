@@ -224,6 +224,7 @@ def Map(stuff,world):
     global mapzoom
     global mapwindow
     global mapframe
+    global zoomframe
     mapwindow = PanedWindow(main,orient=VERTICAL)
     mainwin.add(mapwindow) 
     mapwindow.update_idletasks()
@@ -323,6 +324,19 @@ def zoomout():
         mapwindow.destroy()
         Map(stuff,world)
 
+
+def OnChange(self):
+    global mapwindow
+    global mapframe
+    mapwindow.update_idletasks()
+    main.update_idletasks()
+    mapwindow.remove(mapframe)
+
+    if mapwindow.winfo_width() <= main.winfo_height()-30:
+        mapwindow.paneconfig(mapframe,before = zoomframe,height = mapwindow.winfo_width())
+    else:
+        mapwindow.paneconfig(mapframe, width =main.winfo_height()-30,before = zoomframe,height = mapwindow.winfo_height()-30)
+    
 #sets up the game window
 def GameSetUp(stuff,world):
     optionsframe = Frame(gamewindow,bd=2,bg="black")
@@ -377,6 +391,9 @@ debugmenu.add_command(label="change", command=lambda:alter())
 menubar.add_cascade(label="Debug", menu=debugmenu)
 
 editmenu = Menu(menubar, tearoff=0)
-main.bind('<Configure>', Map)
+
 main.config(menu=menubar)
+
+main.bind('<ButtonRelease>',OnChange)
+
 main.mainloop()
