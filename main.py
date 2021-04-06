@@ -232,7 +232,7 @@ def Map(stuff,world):
         mapframe = Frame(mapwindow,bg="black",height = mapwindow.winfo_width())
     else:
         mapframe = Frame(mapwindow,bg="black",height = main.winfo_height()-30,width =main.winfo_height()-30)
-    print(mapwindow.winfo_width())
+
     Grid.rowconfigure(mapframe, 0, weight=1)
     Grid.columnconfigure(mapframe, 0, weight=1)
     x=0
@@ -280,7 +280,7 @@ def Map(stuff,world):
                 button.grid(column = y, row = x,sticky=N+S+E+W)
     
         x = 0
-    zoomframe = Frame(mapwindow)
+    zoomframe = Frame(mapwindow,bg="black")
     button = Button(zoomframe,text = "+",height=1, width = 2,command= lambda:zoomin())
     button.grid(row = mapzoom*2+2,column = mapzoom+2)
     
@@ -291,6 +291,12 @@ def Map(stuff,world):
     else:
         mapwindow.paneconfig(mapframe, width =main.winfo_height()-30)
     mapwindow.paneconfig(zoomframe,sticky = N)
+    zoomframe.update_idletasks()
+    mapframe.update_idletasks()
+    print(zoomframe.winfo_width())
+    print(mapframe.winfo_width())
+    print(mapwindow.winfo_width())
+
 
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
@@ -371,6 +377,6 @@ debugmenu.add_command(label="change", command=lambda:alter())
 menubar.add_cascade(label="Debug", menu=debugmenu)
 
 editmenu = Menu(menubar, tearoff=0)
-
+main.bind('<Configure>', Map)
 main.config(menu=menubar)
 main.mainloop()
