@@ -225,9 +225,11 @@ def Map(stuff,world):
     global mapwindow
     global mapframe
     global zoomframe
+    global OldWidth
     mapwindow = PanedWindow(main,orient=VERTICAL)
     mainwin.add(mapwindow) 
     mapwindow.update_idletasks()
+    
     main.update_idletasks()
     if mapwindow.winfo_width() <= main.winfo_height()-30:
         mapframe = Frame(mapwindow,bg="black",height = mapwindow.winfo_width())
@@ -296,8 +298,9 @@ def Map(stuff,world):
     mapframe.update_idletasks()
     print(zoomframe.winfo_width())
     print(mapframe.winfo_width())
+    print(mapframe.winfo_height())
     print(mapwindow.winfo_width())
-
+    OldWidth = mapwindow.winfo_width()
 
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
@@ -328,15 +331,21 @@ def zoomout():
 def OnChange(self):
     global mapwindow
     global mapframe
+    global OldWidth
     mapwindow.update_idletasks()
+    mapframe.update_idletasks()
     main.update_idletasks()
-    mapwindow.remove(mapframe)
 
-    if mapwindow.winfo_width() <= main.winfo_height()-30:
-        mapwindow.paneconfig(mapframe,before = zoomframe,height = mapwindow.winfo_width())
-    else:
-        mapwindow.paneconfig(mapframe, width =main.winfo_height()-30,before = zoomframe,height = mapwindow.winfo_height()-30)
-    
+    if mapwindow.winfo_width() != OldWidth:
+        mapwindow.remove(mapframe)
+
+        if mapwindow.winfo_width() <= main.winfo_height()-30:
+            mapwindow.paneconfig(mapframe,before = zoomframe,height = mapwindow.winfo_width())
+
+        else:
+            mapwindow.paneconfig(mapframe, width =main.winfo_height()-30,before = zoomframe,height = mapwindow.winfo_height()-30)
+        OldWidth = mapwindow.winfo_width()
+            
 #sets up the game window
 def GameSetUp(stuff,world):
     optionsframe = Frame(gamewindow,bd=2,bg="black")
