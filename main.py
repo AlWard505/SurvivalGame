@@ -267,21 +267,24 @@ def Map(stuff,world):
     while y-mapzoom-1 != mapzoom:
         y+=1
         colours=["#A1EC4B","#478301","#D8DD28","#1D4CC5","#B8B8B8","red"]
-        Grid.rowconfigure(mapframe, y, weight=1)
+        Grid.rowconfigure(mapframe, y-1, weight=1)
         while x-mapzoom-1 != mapzoom:
             x+=1
-            Grid.columnconfigure(mapframe, x, weight=1)
+            Grid.columnconfigure(mapframe, x-1, weight=1)
             if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"] or stuff["fog"] == 0:
                 button = Button(mapframe,
                                 bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],
                                 command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,
                                 movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
-                button.grid(column = y, row = x,sticky=N+S+E+W)
+                
+                button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
                 
             else:
-                button = Button(mapframe,bg = "grey",command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
-                button.grid(column = y, row = x,sticky=N+S+E+W)
-    
+                button = Button(mapframe,bg = "grey",command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,
+                                movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
+                
+                button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
+            
         x = 0
     zoomframe = Frame(mapwindow,bg="black")
     button = Button(zoomframe,text = "+",height=1, width = 2,command= lambda:zoomin())
@@ -296,10 +299,6 @@ def Map(stuff,world):
     mapwindow.paneconfig(zoomframe,sticky = N)
     zoomframe.update_idletasks()
     mapframe.update_idletasks()
-    print(zoomframe.winfo_width())
-    print(mapframe.winfo_width())
-    print(mapframe.winfo_height())
-    print(mapwindow.winfo_width())
     OldWidth = mapwindow.winfo_width()
 
 #moves the button clicked to the center of the grid
@@ -344,6 +343,7 @@ def OnChange(self):
 
         else:
             mapwindow.paneconfig(mapframe, width =main.winfo_height()-30,before = zoomframe,height = mapwindow.winfo_height()-30)
+            mapwindow.width = main.winfo_height()-30
         OldWidth = mapwindow.winfo_width()
             
 #sets up the game window
