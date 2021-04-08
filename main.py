@@ -311,7 +311,7 @@ def MapMove(movx,movy,biome):
 #expands the radius of the grid by 1
 def zoomin():
     global mapzoom
-    if mapzoom != 10:
+    if mapzoom != 8:
         mapzoom+=1
         
         mapwindow.destroy()
