@@ -348,6 +348,9 @@ def OnChange(self):
             
 #sets up the game window
 def GameSetUp(stuff,world):
+    global GUI
+    GUI = Frame(gamewindow,bd=2,bg="white")
+    #game options
     optionsframe = Frame(gamewindow,bd=2,bg="black")
     BuildButton = Button(optionsframe,text = "Build")
     BuildButton.pack(side = LEFT)
@@ -355,10 +358,14 @@ def GameSetUp(stuff,world):
     LogButton.pack(side = LEFT)
     MineButton = Button(optionsframe,text = "Mine")
     MineButton.pack(side = LEFT)
-    gamewindow.add(optionsframe)
+    gamewindow.paneconfig(optionsframe,sticky = S)
+    
+    #info
+    gamewindow.paneconfig(GUI,sticky = N, before = optionsframe)
     
     Map(stuff,world)
-    
+
+
 #Window Setup        
 main = Tk()
 global mainheight, mainwidth 
