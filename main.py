@@ -303,11 +303,13 @@ def Map(stuff,world):
 
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
+    global coordinates
     stuff["currentlocation"]["x"] = movx
     stuff["currentlocation"]["y"] = movy
     mapwindow.destroy()
     Map(stuff,world)
-
+    coordinates.set("x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"])) 
+    
 #expands the radius of the grid by 1
 def zoomin():
     global mapzoom
@@ -331,6 +333,7 @@ def OnChange(self):
     global mapwindow
     global mapframe
     global OldWidth
+    global GUI
     mapwindow.update_idletasks()
     mapframe.update_idletasks()
     main.update_idletasks()
@@ -345,27 +348,38 @@ def OnChange(self):
             mapwindow.paneconfig(mapframe, width =main.winfo_height()-30,before = zoomframe,height = mapwindow.winfo_height()-30)
             mapwindow.width = main.winfo_height()-30
         OldWidth = mapwindow.winfo_width()
-            
 #sets up the game window
 def GameSetUp(stuff,world):
     global GUI
-    GUI = Frame(gamewindow,bd=2,bg="white")
+    global gamewindow
+    GUI = Frame(gamewindow,bg="white")
+    for children in gamewindow.panes():
+        gamewindow.forget(children)
     #game options
-    optionsframe = Frame(gamewindow,bd=2,bg="black")
-    BuildButton = Button(optionsframe,text = "Build")
+    optionsframe = Frame(gamewindow,bg="black")
+    BuildButton = Button(optionsframe,text = "Build",height = 1)
     BuildButton.pack(side = LEFT)
-    LogButton = Button(optionsframe,text = "Log")
+    LogButton = Button(optionsframe,text = "Log",height = 1)
     LogButton.pack(side = LEFT)
-    MineButton = Button(optionsframe,text = "Mine")
+    MineButton = Button(optionsframe,text = "Mine",height = 1)
     MineButton.pack(side = LEFT)
-    gamewindow.paneconfig(optionsframe,sticky = S)
+    gamewindow.paneconfig(optionsframe,sticky = S, height = 30)
     
     #info
-    gamewindow.paneconfig(GUI,sticky = N, before = optionsframe)
+    main.update_idletasks()
+    gamewindow.paneconfig(GUI,sticky = N+E+W, before = optionsframe,height = main.winfo_height()-30)
     
     Map(stuff,world)
+    MainScreen()
+def MainScreen():
+    global GUI, coordinates
+    coordinates = StringVar()
+    coordinates.set( "x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"]))
+    info = Label(GUI, textvariable = coordinates)
+    info.pack(anchor = NW)
 
 
+    
 #Window Setup        
 main = Tk()
 global mainheight, mainwidth 
