@@ -300,15 +300,15 @@ def Map(stuff,world):
     zoomframe.update_idletasks()
     mapframe.update_idletasks()
     OldWidth = mapwindow.winfo_width()
-
+    ChunkInfo.set("x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"]))
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
-    global coordinates
+    global ChunkInfo
     stuff["currentlocation"]["x"] = movx
     stuff["currentlocation"]["y"] = movy
     mapwindow.destroy()
     Map(stuff,world)
-    coordinates.set("x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"])) 
+    ChunkInfo.set("x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"])) 
     
 #expands the radius of the grid by 1
 def zoomin():
@@ -372,10 +372,9 @@ def GameSetUp(stuff,world):
     Map(stuff,world)
     MainScreen()
 def MainScreen():
-    global GUI, coordinates
-    coordinates = StringVar()
-    coordinates.set( "x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"]))
-    info = Label(GUI, textvariable = coordinates)
+    global GUI, ChunkInfo
+    ChunkInfo = StringVar()
+    info = Label(GUI, textvariable = ChunkInfo)
     info.pack(anchor = NW)
 
 
