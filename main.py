@@ -226,6 +226,7 @@ def Map(stuff,world):
     global mapframe
     global zoomframe
     global OldWidth
+    global ChunkInfo
     mapwindow = PanedWindow(main,orient=VERTICAL)
     mainwin.add(mapwindow) 
     mapwindow.update_idletasks()
@@ -301,6 +302,7 @@ def Map(stuff,world):
     mapframe.update_idletasks()
     OldWidth = mapwindow.winfo_width()
     ChunkInfo.set("x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"]))
+    
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
     global ChunkInfo
@@ -368,12 +370,13 @@ def GameSetUp(stuff,world):
     #info
     main.update_idletasks()
     gamewindow.paneconfig(GUI,sticky = N+E+W, before = optionsframe,height = main.winfo_height()-30)
-    
-    Map(stuff,world)
     MainScreen()
+    Map(stuff,world)
+    
 def MainScreen():
     global GUI, ChunkInfo
     ChunkInfo = StringVar()
+
     info = Label(GUI, textvariable = ChunkInfo)
     info.pack(anchor = NW)
 
