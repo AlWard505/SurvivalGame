@@ -301,7 +301,7 @@ def Map(stuff,world):
     zoomframe.update_idletasks()
     mapframe.update_idletasks()
     OldWidth = mapwindow.winfo_width()
-    ChunkInfo.set("x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"]))
+    ChunkInfo.set("x:"+str(stuff["currentlocation"]["y"])+"\ny:"+str(1024-stuff["currentlocation"]["x"]))
     
 #moves the button clicked to the center of the grid
 def MapMove(movx,movy,biome):
@@ -310,7 +310,7 @@ def MapMove(movx,movy,biome):
     stuff["currentlocation"]["y"] = movy
     mapwindow.destroy()
     Map(stuff,world)
-    ChunkInfo.set("x:"+str(stuff["currentlocation"]["x"])+"\ny:"+str(stuff["currentlocation"]["y"])) 
+
     
 #expands the radius of the grid by 1
 def zoomin():
