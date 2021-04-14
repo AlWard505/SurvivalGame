@@ -242,9 +242,11 @@ def Map(stuff,world):
     x=0
     y=0
     maprange = 1
+    
     biome = world[stuff["currentlocation"]["y"]][stuff["currentlocation"]["x"]]
     if str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"]) not in stuff["generatedbiomes"]:
         BiomeGeneration(biome,stuff)
+        
     #fog of war
     while y-maprange-1!=maprange and stuff["fog"]==1:
         y+=1
@@ -255,7 +257,20 @@ def Map(stuff,world):
             if str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1) not in stuff["discovered"]:
                 stuff["discovered"]+= [str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1)]
         x=0
-    stuff["discovered"]
+    y = 0
+    x = 0
+    stuff["border"] = []
+    
+    while y-maprange+1-1!=maprange+1 and stuff["fog"]==1:
+        y+=1
+        
+        while x-maprange+1-1 != maprange+1:
+            x+=1
+            
+            if str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1) not in stuff["border"]:
+                stuff["border"]+= [str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1)]
+        x=0
+        
     x=0
     y=0
     tempx=0
@@ -279,24 +294,31 @@ def Map(stuff,world):
                                 movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
                 
                 button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
-                
-            else:
-                button = Button(mapframe,bg = "grey",command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,
+
+            elif str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["border"]:
+                button = Button(mapframe,bg = "#999999",command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,
                                 movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
+                
+                button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
+            else:
+                button = Button(mapframe,bg = "#737373")
                 
                 button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
             
         x = 0
+        
     zoomframe = Frame(mapwindow,bg="black")
     button = Button(zoomframe,text = "+",height=1, width = 2,command= lambda:zoomin())
     button.grid(row = mapzoom*2+2,column = mapzoom+2)
     
     button = Button(zoomframe,text = "-",height=1, width = 2,command= lambda:zoomout())
     button.grid(row = mapzoom*2+2,column = mapzoom)
+    
     if mapwindow.winfo_width() <= main.winfo_height()-30:
         mapwindow.add(mapframe)
     else:
         mapwindow.paneconfig(mapframe, width =main.winfo_height()-30)
+        
     mapwindow.paneconfig(zoomframe,sticky = N)
     zoomframe.update_idletasks()
     mapframe.update_idletasks()
