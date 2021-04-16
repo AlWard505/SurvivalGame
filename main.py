@@ -257,19 +257,7 @@ def Map(stuff,world):
             if str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1) not in stuff["discovered"]:
                 stuff["discovered"]+= [str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1)]
         x=0
-    y = 0
-    x = 0
-    stuff["border"] = []
-    
-    while y-maprange+1-1!=maprange+1 and stuff["fog"]==1:
-        y+=1
-        
-        while x-maprange+1-1 != maprange+1:
-            x+=1
-            
-            if str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1) not in stuff["border"]:
-                stuff["border"]+= [str(stuff["currentlocation"]["x"]+x-maprange-1) +","+ str(stuff["currentlocation"]["y"]+y-maprange-1)]
-        x=0
+
         
     x=0
     y=0
@@ -287,6 +275,7 @@ def Map(stuff,world):
         while x-mapzoom-1 != mapzoom:
             x+=1
             Grid.columnconfigure(mapframe, x-1, weight=1)
+
             if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"] or stuff["fog"] == 0:
                 button = Button(mapframe,
                                 bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],
@@ -295,9 +284,7 @@ def Map(stuff,world):
                 
                 button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
 
-            elif str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["border"]:
-                button = Button(mapframe,bg = "#999999",command = lambda  movx = stuff["currentlocation"]["x"]+x-mapzoom-1,
-                                movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
+            
                 
                 button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
             else:
