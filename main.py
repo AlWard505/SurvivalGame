@@ -5,7 +5,7 @@ import os
 from tkinter import *
 from worldgeneration import *
 from game import *
-mapzoom=2
+
 
 #Generates and gets the contents of th ~playerdata and ~worlddata json files
 def GetNew(entry,filewin,fog):
@@ -220,10 +220,11 @@ def exitsavwar():
 # generates the map of the world and allows you to click a square and move to it
 # contains the system that generates the fog of war
 def Map(stuff,world):
-
+    global border
     global mapzoom
     global mapwindow
     global mapframe
+    global maprange
     global zoomframe
     global OldWidth
     global ChunkInfo
@@ -241,7 +242,7 @@ def Map(stuff,world):
     Grid.columnconfigure(mapframe, 0, weight=1)
     x=0
     y=0
-    maprange = 1
+    
     
     biome = world[stuff["currentlocation"]["y"]][stuff["currentlocation"]["x"]]
     if str(stuff["currentlocation"]["x"]) +","+ str(stuff["currentlocation"]["y"]) not in stuff["generatedbiomes"]:
@@ -266,7 +267,7 @@ def Map(stuff,world):
     biome = 0
     movx = 0
     movy = 0
-    
+
     #display
     while y-mapzoom-1 != mapzoom:
         y+=1
@@ -275,17 +276,7 @@ def Map(stuff,world):
         while x-mapzoom-1 != mapzoom:
             x+=1
             Grid.columnconfigure(mapframe, x-1, weight=1)
-            border=[
-                [1,1],
-                [1,0],
-                [1,-1],
-                [0,1],
-                [0,0],
-                [0,-1],
-                [-1,1],
-                [-1,0],
-                [-1,-1]
-                ]
+
             check = False
             count = 0
             if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"] or stuff["fog"] == 0:
@@ -408,6 +399,18 @@ def MainScreen():
     info = Label(GUI, textvariable = ChunkInfo)
     info.pack(anchor = NW)
 
+def upmaprange():
+
+    global maprange
+
+    maprange += 1
+
+            
+def lowermaprange():
+    global border
+    global maprange
+
+    maprange += -1
 
     
 #Window Setup        
@@ -421,7 +424,13 @@ mainwin.pack(fill=BOTH, expand=1,side = LEFT)
 
 
 
-
+#varibles
+mapzoom=2
+maprange = 1
+border=[]
+for z in range(2*1+1):
+    for c in range(2*1+1):
+        border+=[[z-1,c-1]]
 #Game Content
 global gamewindow
 gamewindow = PanedWindow(mainwin, orient=VERTICAL,bg = "black", height = mainheight, width = mainwidth/2)
@@ -447,7 +456,8 @@ debugmenu = Menu(menubar, tearoff=0)
 
 debugmenu.add_command(label="filename", command=lambda:print(filename))
 debugmenu.add_command(label="stuff", command=lambda:print(stuff))
-debugmenu.add_command(label="change", command=lambda:alter())
+debugmenu.add_command(label="increase maprange", command=upmaprange)
+debugmenu.add_command(label="decrease maprange", command=lowermaprange)
 menubar.add_cascade(label="Debug", menu=debugmenu)
 
 editmenu = Menu(menubar, tearoff=0)
