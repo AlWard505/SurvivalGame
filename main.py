@@ -275,7 +275,18 @@ def Map(stuff,world):
         while x-mapzoom-1 != mapzoom:
             x+=1
             Grid.columnconfigure(mapframe, x-1, weight=1)
-
+            border=[
+                [1,1],
+                [1,0],
+                [1,-1],
+                [0,1],
+                [0,0],
+                [0,-1],
+                [-1,1],
+                [-1,0],
+                [-1,-1]
+                ]
+            check = False
             if str(stuff["currentlocation"]["x"]+x-mapzoom-1) +","+ str(stuff["currentlocation"]["y"]+y-mapzoom-1) in stuff["discovered"] or stuff["fog"] == 0:
                 button = Button(mapframe,
                                 bg = colours[world[stuff["currentlocation"]["y"]+y-mapzoom-1][stuff["currentlocation"]["x"]+x-mapzoom-1]-1],
@@ -283,14 +294,19 @@ def Map(stuff,world):
                                 movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
                 
                 button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
-
-            
-                
-                button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
             else:
-                button = Button(mapframe,bg = "#737373")
+                for x in border:
+                    if str(stuff["currentlocation"]["x"]+x-mapzoom-1+int(border[x][0]) +","+ stuff["currentlocation"]["y"]+y-mapzoom-1+int(border[x][1])) in stuff["discovered"]:
+                        button = Button(mapframe,
+                                        bg = "#999999",command = lambda movx = stuff["currentlocation"]["x"]+x-mapzoom-1,
+                                        movy =stuff["currentlocation"]["y"]+y-mapzoom-1: MapMove(movx,movy,biome))
+                        button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
+                        check = True
+                        pass
+                if check == True:
+                    button = Button(mapframe,bg = "#737373")
                 
-                button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
+                    button.grid(column = y-1, row = x-1,sticky=N+S+E+W)
             
         x = 0
         
