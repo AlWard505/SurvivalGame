@@ -384,6 +384,9 @@ def GameSetUp(stuff,world):
     LogButton.pack(side = LEFT)
     MineButton = Button(optionsframe,text = "Mine",height = 1)
     MineButton.pack(side = LEFT)
+    MineButton = Button(optionsframe,text = "Inventory",height = 1,command = Inventory)
+    MineButton.pack(side = LEFT)
+    
     gamewindow.paneconfig(optionsframe,sticky = S, height = 30)
     
     #info
@@ -391,6 +394,14 @@ def GameSetUp(stuff,world):
     gamewindow.paneconfig(GUI,sticky = N+E+W, before = optionsframe,height = main.winfo_height()-30)
     MainScreen()
     Map(stuff,world)
+
+#opens inventory
+def Inventory():
+    inventory = Toplevel(main)
+    label = Label(inventory)
+    for x in stuff["inventory"]:
+        label.text += str(stuff["inventory"][x])
+    label.pack(side = LEFT)
     
 def MainScreen():
     global GUI, ChunkInfo
