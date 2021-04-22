@@ -220,14 +220,8 @@ def exitsavwar():
 # generates the map of the world and allows you to click a square and move to it
 # contains the system that generates the fog of war
 def Map(stuff,world):
-    global border
-    global mapzoom
-    global mapwindow
-    global mapframe
-    global maprange
-    global zoomframe
-    global OldWidth
-    global ChunkInfo
+    global border,mapzoom,mapwindow,mapframe,maorange,zoomframe,OldWidth,ChunkInfo
+    
     mapwindow = PanedWindow(main,orient=VERTICAL)
     mainwin.add(mapwindow) 
     mapwindow.update_idletasks()
@@ -369,6 +363,7 @@ def OnChange(self):
             mapwindow.paneconfig(mapframe, width =main.winfo_height()-30,before = zoomframe,height = mapwindow.winfo_height()-30)
             mapwindow.width = main.winfo_height()-30
         OldWidth = mapwindow.winfo_width()
+        
 #sets up the game window
 def GameSetUp(stuff,world):
     global GUI
