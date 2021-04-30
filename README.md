@@ -15,3 +15,4 @@ saving will occur if you click the "Save" button or the "Save & Quit" button
 
 if you want fog of war in your game then you can select the option when creating it
 this will limit you to what you have discovered and not let you travel too far too quickly
+ 
